@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: shadowofdiablofmiproject 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shadowofdiablofmiproject
+  template:
+    metadata:
+      labels:
+        app: shadowofdiablofmiproject 
+    spec:
+      containers:
+        - name: shadowofdiablofmiproject 
+          image: crtutorial.azurecr.io/shadowofdiablofmiproject
+          ports:
+          - containerPort: 80
