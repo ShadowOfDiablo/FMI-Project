@@ -14,11 +14,10 @@ spec:
         app: backend
     spec:
       containers:
-      
-name: libarter-be-container
-      image: tihomirdimitrov05/libarter-be-image:latest  
-      ports:
-containerPort: 3000
+      - name: libarter-be-container  # Correct indentation
+        image: tihomirdimitrov05/libarter-be-image:latest  
+        ports:
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -28,8 +27,7 @@ spec:
   selector:
     app: backend
   ports:
-    
-protocol: TCP
+  - protocol: TCP
     port: 3000
     targetPort: 3000
-type: LoadBalancer
+  type: LoadBalancer
