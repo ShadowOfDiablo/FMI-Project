@@ -13,8 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import getBookByISBN from "../service/getBookByISBN";
 import getBookSuggestions from "../service/getBookSuggestions";
+import CheckAuthorization from "../service/checkAuthorization";
+import redirectToLoginIfUnauth from "../functions/redirectToLoginIfUnauth";
+import Background from "./Background";
+import RequestOfferSelector from "./RequestOfferSelector";
 
 const ChangeBook = ({
+    type,
     book,
     setBook,
     handleSubmit,
@@ -23,6 +28,10 @@ const ChangeBook = ({
 
     const [pressed, setPressed] = useState(false)
     const [suggestedOffers, setSuggestedOffers] = useState([])
+
+    useEffect(()=>{
+        redirectToLoginIfUnauth();
+    },[])
 
     useEffect(()=>{
         if(book.isbn!=="" && pressed==true)
@@ -57,11 +66,11 @@ const ChangeBook = ({
     } 
 
     return ( 
-        <main className='bg-customColors-white w-screen h-screen overflow-y-scroll'>
+        <Background >
             <CenteredBox>
                 <div className='flex flex-col'>
-                    <h1 className="text-2xl font-bold mb-4 text-customColors-darkBrown flex justify-center">
-                        {book.isRequest?"Add a request":"Add a new Book"}
+                    <h1 className="text-2xl font-bold mb-4 text-customColors-secondary flex justify-center">
+                        {book.isRequest?`${type} a Request`:`${type} a Book`}
                     </h1>
                     <form onSubmit={handleSubmit}>
                         <PhotoInput 
@@ -69,6 +78,15 @@ const ChangeBook = ({
                             setPhotos={(newPhotos)=>{
                                 setVal("photos", newPhotos);
                         }}/>
+
+                        <RequestOfferSelector
+                            isRequest={book.isRequest}
+                            setIsRequest={(newIsRequest)=>{
+                                let bookCopy = {...book};
+                                bookCopy.isRequest = newIsRequest;
+                                setBook(bookCopy);
+                            }}
+                        />
                         
                         <ISBNInput 
                             setPressed={setPressed} 
@@ -101,7 +119,7 @@ const ChangeBook = ({
                             <div>{book.isRequest?"Search for people with similar offers:":"Search for people with similar requests:"}</div>
                             <button 
                             type="button"
-                            className=" text-customColors-lightBrown bg-customColors-darkBrown p-3 rounded-md"
+                            className=" text-customColors-accent bg-customColors-secondary p-3 rounded-md"
                             onClick={()=>{
                                 const getSuggestions = async () => {
                                     const data = await getBookSuggestions(book);
@@ -128,8 +146,7 @@ const ChangeBook = ({
                     </form>
                 </div>
             </CenteredBox>
-            
-        </main>
+        </Background>
      );
 }
  

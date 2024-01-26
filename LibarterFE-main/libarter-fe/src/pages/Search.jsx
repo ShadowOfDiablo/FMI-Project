@@ -7,7 +7,9 @@ import PageSelector from "../components/PageSelector";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../constants";
 import RequestOfferSelector from '../components/RequestOfferSelector';
-import getBooksBySearch from '../service/getBooksBySearch';
+import getBooksBySearch from '../service/public/getBooksBySearch';
+import Background from '../components/Background';
+import Footer from '../components/Footer';
 
 const Search = () => {
   const [isRequest, setIsRequest] = useState(false);
@@ -35,13 +37,13 @@ const Search = () => {
 
 
     const loadDTO = { isRequest, searchTerm: searchTerm, pageNum: pageNum - 1, minPrice: priceRange[0], maxPrice: priceRange[1] };
-    
+
     const fetchData = async () => {
-      const data = await getBooksBySearch(endpoint, loadDTO);
-      if(data === null)
-        data = [];
-        setMyOffersList(data.books);
-        setTotalPages(data.totalPageCount);
+      let data = await getBooksBySearch(endpoint, loadDTO);
+      if (data === null)
+        data = { books: [], totalPageCount: 1 };
+      setMyOffersList(data.books);
+      setTotalPages(data.totalPageCount);
     }
 
     fetchData();
@@ -49,14 +51,47 @@ const Search = () => {
   }, [searchTerm, pageNum, searchType, priceRange, isRequest]);
 
   return (
-    <main className='z-0 flex flex-col h-full w-full bg-customColors-white overflow-y-scroll'>
-      <RequestOfferSelector isRequest={isRequest} setIsRequest={setIsRequest} />
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setSearchType={setSearchType}
-        priceRange={priceRange}
-        setPriceRange={setPriceRange}
+    <Background>
+      <div className=' bg-gradient-to-b from-customColors-primary to-customColors-complementary'>
+
+      
+
+      <div className="lg:flex relative mb-10 border-b-4 border-white shadow-lg shadow-customColors-primary">
+        <div className="lg:w-1/2 lg:static">
+          <div className=" lg:h-full w-full bg-customColors-homeImageBg shadow-lg shadow-customColors-primary lg:shadow-none border-b-4 border-white lg:border-none">
+            <img
+              src="WelcomeToLibarter.png"
+              alt=""
+              className=' w-full object-contain'
+              style={{maxHeight: '50vh'}}
+            />
+
+          </div>
+        </div>
+
+        <div className="lg:w-1/2 lg:mt-0">
+          <div className="h-full pt-10 pb-6 flex justify-center bg-customColors-homeImageBg">
+            <RequestOfferSelector isRequest={isRequest} setIsRequest={setIsRequest} />
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 w-full">
+          <SearchBar
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            setSearchType={setSearchType}
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+          />
+        </div>
+      </div>
+
+
+      <DisplayAllOffers
+        offers={myOffersList}
+        handleClick={(index) => {
+          navigate(`${routes.offerPage}/${myOffersList[index].id}`)
+        }}
       />
 
       <PageSelector
@@ -66,13 +101,8 @@ const Search = () => {
           setPageNum(newPage)
         }}
       />
-      <DisplayAllOffers
-        offers={myOffersList}
-        handleClick={(index) => {
-          navigate(`${routes.offerPage}/${myOffersList[index].id}`)
-        }}
-      />
-    </main>
+      </div>
+    </Background>
   );
 }
 

@@ -6,15 +6,17 @@ export const routes = {
     forgotPassword: '/forgot-password',
     addBook: '/add-book',
     search: '/search',
-    about: '/about',
     myOffers: '/my-offers',
     updateOffer: '/update-offer',
     offerPage: '/offer-page',
     resetPassword: '/reset-password',
-    checkEmail: '/check-email'
+    checkEmail: '/check-email',
+    profilePage: '/profile-page',
+    conversations: '/conversations',
+    messages: '/messages'
 };
 
 //export const dbAdress="https://libarterbe.azurewebsites.net/";
-export const dbAdress="http://localhost:8080/";
+export const dbAdress="libarterbe1.azurewebsites.net";
 
-export const feAdress = "http://localhost:3000";
+export const feAdress = "libarterfe.azurewebsites.net";

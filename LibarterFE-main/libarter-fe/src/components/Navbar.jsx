@@ -5,7 +5,7 @@ import { routes } from "../constants";
 import { Link } from 'react-router-dom';
 import HomeButton from "./HomeButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPlus, faBook, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlus, faBook, faInfoCircle, faMessage } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = ({show, onMenuClick}) => {
     const location = useLocation();
@@ -56,13 +56,13 @@ const Navbar = ({show, onMenuClick}) => {
         return (
             <nav className="relative z-50">
                 <div className="fixed inset-0 bg-black opacity-50"/>
-                <div ref={navbarRef} className={`fixed left-0 top-0 h-full w-[15rem] bg-customColors-darkBrown text-white p-4`}>
+                <div ref={navbarRef} className={`fixed left-0 top-0 h-full w-[15rem] bg-customColors-secondary text-white p-4`}>
                     <HomeButton onMenuClick={onMenuClick}/>
                     <ul className='flex flex-col mt-6'>
                         <li><NavButton route={routes.search} text={"Search for Books"} icon={faSearch}/></li>
                         <li><NavButton route={routes.addBook} text={"Add Offer"} icon={faPlus}/></li>
                         <li><NavButton route={routes.myOffers} text={"My offers"} icon={faBook}/></li>
-                        <li><NavButton route={routes.about} text={"About"} icon={faInfoCircle}/></li>
+                        <li><NavButton route={routes.conversations} text={"Chat"} icon={faMessage}/></li>
                     </ul>
                     
                 </div>

@@ -37,23 +37,16 @@ const AddBook = () => {
 
     return ( 
         
-        <div>
-            <RequestOfferSelector
-                isRequest={book.isRequest}
-                setIsRequest={(newIsRequest)=>{
-                    let bookCopy = {...book};
-                    bookCopy.isRequest = newIsRequest;
-                    setBook(bookCopy);
-                }}
-            />
+        <>            
             <ChangeBook
+            type={"Add"}
             handleSubmit={handleSubmit}
             error={error}
             setError={setError}
             book={book}
             setBook={setBook}
             />
-        </div>
+        </>
         
      );
 }

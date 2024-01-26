@@ -5,7 +5,7 @@ import { routes } from "../constants";
 import SubmitButton from "../components/SubmitButton";
 import { Link, useNavigate } from 'react-router-dom';
 import FormInputComponent from "../components/FormInputComponent";
-import register from '../service/register';
+import register from '../service/public/register';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -34,10 +34,10 @@ const Register = () => {
     
 
     return ( 
-        <main className=' bg-customColors-lightBrown w-screen h-screen'>
+        <main className=' bg-customColors-accent w-screen h-screen overflow-y-scrollaxiosInstance'>
             <CenteredBox>
                 <div className='flex flex-col'>
-                    <h1 className="text-2xl font-bold mb-4 text-customColors-darkBrown">
+                    <h1 className="text-2xl font-bold mb-4 text-customColors-secondary">
                         Register
                     </h1>
                     <form onSubmit={handleSubmit}>
@@ -53,8 +53,9 @@ const Register = () => {
                                 Invalid credentials. Please try again.
                             </div>
                         )}
+                        
                         <div className="container flex justify-center">
-                            <Link to={routes.login} className="text-customColors-lightBrown">
+                            <Link to={routes.login} className="text-customColors-primary">
                                 Log in instead
                             </Link>
                         </div>

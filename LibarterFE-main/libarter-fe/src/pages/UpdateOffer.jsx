@@ -46,6 +46,7 @@ const UpdateOffer = (  ) => {
 
 
         const updateDB = async () => {
+          console.log(book);
           const successfulUpdate = updateBookById(state.id, book);
           if(successfulUpdate)
             navigate(routes.myOffers);
@@ -56,23 +57,16 @@ const UpdateOffer = (  ) => {
     }
 
     return ( 
-      <div>
-        <RequestOfferSelector
-            isRequest={book.isRequest}
-            setIsRequest={(newIsRequest)=>{
-                let bookCopy = {...book};
-                bookCopy.isRequest = newIsRequest;
-                setBook(bookCopy);
-            }}
-        />
+      <>
         <ChangeBook
+          type={"Update"}
           handleSubmit={handleSubmit}
           error={error}
           setError={setError}
           book={book}
           setBook={setBook}
         />
-      </div>
+      </>
         
     );
 }

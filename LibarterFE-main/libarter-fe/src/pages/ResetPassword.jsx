@@ -3,7 +3,7 @@ import CenteredBox from '../components/CenteredBox';
 import FormInputComponent from "../components/FormInputComponent";
 import { useState } from 'react';
 import SubmitButton from '../components/SubmitButton';
-import resetPassword from '../service/resetPassword';
+import resetPassword from '../service/public/resetPassword';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../constants';
 
@@ -23,7 +23,6 @@ const ResetPassword = () => {
 
         const asyncHandleSubmit = async () => {
             const res = await resetPassword({newPassword, token});
-            console.log(res);
             if (res === false)
                 setIsError(true);
             else
@@ -34,10 +33,10 @@ const ResetPassword = () => {
     }
 
     return ( 
-        <main className=' bg-customColors-lightBrown w-screen h-full overflow-y-scroll'>
+        <main className=' bg-customColors-accent w-screen h-full overflow-y-scroll'>
             <CenteredBox>
                 <div>
-                    <h1 className="text-2xl font-bold mb-4 text-customColors-darkBrown">
+                    <h1 className="text-2xl font-bold mb-4 text-customColors-secondary">
                         Reset Password
                     </h1>
                     <form onSubmit={handleSubmit}>
@@ -48,7 +47,7 @@ const ResetPassword = () => {
                             <button
                                 type='button'
                                 onClick={handleSubmit}
-                                className="w-full bg-customColors-darkBrown text-white py-2 px-4 rounded-md cursor-pointer"
+                                className="w-full bg-customColors-secondary text-white py-2 px-4 rounded-md cursor-pointer"
                                 >
                                     Reset Password
                                     
