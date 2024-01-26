@@ -21,12 +21,10 @@ public class PublicBookController{
     @GetMapping("/getById/{id}")
     @Transactional
     public ResponseEntity<BookDTO> getById(@PathVariable int id) {
-        Optional<Book> bookOptional = bookService.getBookById(id);
+        BookDTO book = bookService.getBookDTOById(id);
 
-        if (bookOptional.isPresent()) {
-            Book book = bookOptional.get();
-            BookDTO bookDTO = BookDTO.bookToBookDTO(book);
-            return ResponseEntity.ok(bookDTO); // Return 200 OK with the book entity
+        if (book != null) {
+            return ResponseEntity.ok(book); // Return 200 OK with the book entity
         } else {
             return ResponseEntity.notFound().build(); // Return 404 Not Found
         }

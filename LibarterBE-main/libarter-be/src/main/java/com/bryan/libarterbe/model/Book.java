@@ -5,6 +5,7 @@ import com.bryan.libarterbe.service.UserService;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,9 +43,12 @@ public class Book {
     )
     private List<Tag> tags;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user")
     private ApplicationUser user;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Conversation> conversations = new ArrayList<Conversation>();
 
     public Book(
             int id,
@@ -124,6 +128,14 @@ public class Book {
         this.publisher = publisher;
         this.language = language;
         this.yearPublished = yearPublished;
+    }
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
     }
 
     public long getIsbn() {
