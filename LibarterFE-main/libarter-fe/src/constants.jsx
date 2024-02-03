@@ -19,4 +19,4 @@ export const routes = {
 //export const dbAdress="https://libarterbe.azurewebsites.net/";
 export const dbAdress="libarterbe1.azurewebsites.net";
 
-export const feAdress = "libarterfe.azurewebsites.net";
+export const feAdress = "yellow-pond-09924c203.4.azurestaticapps.net";
